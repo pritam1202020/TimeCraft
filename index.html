@@ -219,14 +219,68 @@
 
   /* RESPONSIVE */
   @media (max-width: 640px) {
-    .header { padding: 0.75rem 1rem; }
-    .tabs { padding: 1rem 1rem 0; gap: 2px; }
-    .tab { padding: 0.4rem 0.75rem; font-size: 0.8rem; }
-    .panel { padding: 1rem 1rem 2rem; }
+    /* Header: hide keyboard hints, shrink buttons */
+    .header { padding: 0.65rem 0.9rem; gap: 6px; }
+    .header-actions { gap: 5px; }
+    .header-actions > span { display: none; }
+    .btn-icon { width: 32px; height: 32px; font-size: 0.75rem; padding: 0 8px !important; }
+
+    /* Tabs: full-width, evenly spaced */
+    .tabs { padding: 0.75rem 0.75rem 0; gap: 2px; }
+    .tab { flex: 1; text-align: center; padding: 0.5rem 0.25rem; font-size: 0.78rem; }
+
+    /* Panels */
+    .panel { padding: 0.9rem 0.9rem 5rem; }
+
+    /* Hint pill: smaller, wrap */
+    .hint { font-size: 0.72rem; padding: 0.4rem 0.8rem; flex-wrap: wrap; text-align: center; justify-content: center; }
+
+    /* Stopwatch ring */
+    .ring-wrap, .ring-svg { width: 200px; height: 200px; }
     .sw-time { font-size: 2rem; }
-    .countdown-form { flex: none; width: 100%; }
-    .timers-grid { grid-template-columns: 1fr; }
-    .ring-wrap, .ring-svg { width: 220px; height: 220px; }
+    .sw-ms { font-size: 1rem; }
+
+    /* Stopwatch controls: spread */
+    .controls { gap: 8px; width: 100%; justify-content: center; }
+    .btn-lg { padding: 0.75rem 1.5rem; font-size: 0.9rem; }
+    .btn { padding: 0.6rem 1rem; font-size: 0.82rem; }
+
+    /* Laps table: full width */
+    .laps { max-width: 100%; }
+    .lap-row, .lap-header { padding: 0.5rem 0.75rem; font-size: 0.8rem; }
+
+    /* Timer panel */
+    .timer-top { margin-bottom: 1rem; }
+    .presets { gap: 6px; }
+    .preset { padding: 0.35rem 0.7rem; font-size: 0.75rem; }
+    .timers-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+    .timer-card { padding: 1rem; }
+    .timer-display { font-size: 1.9rem; }
+    .time-input { width: 52px; font-size: 1.1rem; padding: 0.35rem; }
+    .add-timer { height: 130px; }
+
+    /* Countdown: stack form + list vertically */
+    .countdown-top { flex-direction: column; gap: 1rem; }
+    .countdown-form { flex: none; width: 100%; padding: 1.1rem; }
+    .countdowns-list { min-width: 0; width: 100%; }
+
+    /* Countdown cards: tighten */
+    .cd-card { padding: 1.1rem; }
+    .cd-val { font-size: 1.6rem; }
+    .cd-units { gap: 0.4rem; }
+    .cd-name { font-size: 1.1rem; margin-bottom: 0.9rem; }
+
+    /* FAB: move above bottom edge */
+    .fab { bottom: 16px; left: 16px; }
+    .notification { bottom: 16px; right: 16px; left: 16px; max-width: none; }
+
+    /* Form inputs: bigger tap targets */
+    .form-input { padding: 0.7rem 0.9rem; font-size: 0.95rem; }
+  }
+
+  @media (max-width: 640px) {
+    .btn-icon-label { display: none; }
+    .btn-icon { width: 36px !important; height: 36px; padding: 0 !important; justify-content: center; }
   }
 
   /* ALERT ANIMATION */
@@ -247,8 +301,8 @@
       <span style="font-size:0.75rem;color:var(--text3);padding:0 0.5rem">
         <span class="kbd">Space</span> start/pause &nbsp; <span class="kbd">L</span> lap &nbsp; <span class="kbd">R</span> reset
       </span>
-      <button class="btn-icon" id="themeToggle" title="Toggle theme" style="width:auto;padding:0 12px;font-size:0.8rem;gap:6px">🌙 Dark Mode</button>
-      <button class="btn-icon" id="fsBtn" title="Fullscreen stopwatch" style="width:auto;padding:0 12px;font-size:0.8rem;gap:6px">⛶ Fullscreen</button>
+      <button class="btn-icon" id="themeToggle" title="Toggle theme" style="width:auto;padding:0 12px;font-size:0.8rem;gap:6px"><span class="btn-icon-emoji">🌙</span><span class="btn-icon-label"> Dark Mode</span></button>
+      <button class="btn-icon" id="fsBtn" title="Fullscreen stopwatch" style="width:auto;padding:0 12px;font-size:0.8rem;gap:6px"><span class="btn-icon-emoji">⛶</span><span class="btn-icon-label"> Fullscreen</span></button>
     </div>
   </header>
 
@@ -396,7 +450,8 @@ const themeToggle = document.getElementById('themeToggle');
 themeToggle.addEventListener('click', () => {
   isDark = !isDark;
   document.body.classList.toggle('light', !isDark);
-  themeToggle.textContent = isDark ? '🌙 Dark Mode' : '☀️ Light Mode';
+  themeToggle.querySelector('.btn-icon-label').textContent = isDark ? ' Dark Mode' : ' Light Mode';
+  themeToggle.querySelector('.btn-icon-emoji').textContent = isDark ? '🌙' : '☀️';
 });
 
 // ─── FAB ─────────────────────────────────────────────────
